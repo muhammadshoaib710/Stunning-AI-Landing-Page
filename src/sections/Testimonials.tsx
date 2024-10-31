@@ -2,6 +2,7 @@ import avatar1 from "@/assets/avatar-1.png";
 import avatar2 from "@/assets/avatar-2.png";
 import avatar3 from "@/assets/avatar-3.png";
 import avatar4 from "@/assets/avatar-4.png";
+import Image from "next/image";
 
 const testimonials = [
   {
@@ -31,5 +32,25 @@ const testimonials = [
 ];
 
 export const Testimonials = () => {
-  return <section>Testimonials</section>;
+  return (
+    <section className="py-20">
+      <div className="container">
+        <h2 className="text-5xl text-center tracking-tighter font-medium">Beyond Expectation</h2>
+        <p className="text-white/70 text-lg text-center mt-5 tracking-tight" >
+          Our revolutionary AI tools have transformed our clients' strategies
+        </p>
+        {testimonials.map((testimonial) => (
+          <div key={testimonial.name} className="border border-white/15 p-6 rounded-xl bg-[linear-gradient(to_bottom_left,rgb(140,69,255,.3),black)]">
+            <div>{testimonial.text}</div>
+            <Image
+              src={testimonial.avatarImg}
+              alt={`Avatar for ${testimonial.name}`}
+            />
+            <div>{testimonial.name}</div>
+            <div>{testimonial.title}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
