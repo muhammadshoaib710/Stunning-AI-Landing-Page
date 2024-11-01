@@ -15,24 +15,26 @@ import { RefObject, useEffect, useRef } from "react";
 const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const updateMousePosition = (event: MouseEvent) => {
-    if (to.current) {
-      const rect = to.current.getBoundingClientRect();
-      mouseX.set(event.clientX - rect.left);
-      mouseY.set(event.clientY - rect.top);
-    }
-  };
 
   useEffect(() => {
-    window.addEventListener('mousemove',updateMousePosition);
+    const updateMousePosition = (event: MouseEvent) => {
+      if (to.current) {
+        const rect = to.current.getBoundingClientRect();
+        mouseX.set(event.clientX - rect.left);
+        mouseY.set(event.clientY - rect.top);
+      }
+    };
+
+    window.addEventListener('mousemove', updateMousePosition);
 
     return () => {
-      window.removeEventListener('mousemove',updateMousePosition);
-    }
-  }, []);
+      window.removeEventListener('mousemove', updateMousePosition);
+    };
+  }, [to, mouseX, mouseY]);
 
   return [mouseX, mouseY];
 };
+
 
 export const CallToAction = () => {
   const sectionRef = useRef<HTMLDivElement>(null);

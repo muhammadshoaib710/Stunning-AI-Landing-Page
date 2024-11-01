@@ -58,12 +58,12 @@ const FeatureTab = (
 
   useEffect(() => {
     if (!tabRef.current || !props.selected) return;
-
+  
     xPercentage.set(0);
     yPercentage.set(0);
-    const { height, width } = tabRef.current?.getBoundingClientRect();
+    const { height, width } = tabRef.current.getBoundingClientRect();
     const circumference = 2 * (height + width);
-
+  
     const times = [
       0,
       width / circumference,
@@ -78,9 +78,11 @@ const FeatureTab = (
       ease: "linear",
       repeatType: "loop",
     };
+  
     animate(xPercentage, [0, 100, 100, 0, 0], options);
     animate(yPercentage, [0, 0, 100, 100, 0], options);
-  }, [props.selected]);
+  }, [props.selected, xPercentage, yPercentage]);
+  
 
   const handleTabHover = () => {
     if (dotLottieRef.current === null) return;
